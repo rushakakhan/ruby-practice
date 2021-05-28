@@ -21,13 +21,13 @@ until input == code
   guess_arr.each_with_index do |guess, index|
     guess_index = code_arr.index(guess)
     if guess_index == index
-      print "X"
+      output += "X"
     elsif guess_index
-      print "x"
+      output += "x"
     end
   end
 
-  print "\n"
+  puts output
   print "[#{guesses}] Enter your guess: "
 
   input = gets.chomp
