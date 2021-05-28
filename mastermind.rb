@@ -12,15 +12,11 @@ guesses = 1
 print "[#{guesses}] Enter your guess: "
 input = gets.chomp
 
-while input != code
+until input == code
   guess_arr = input.split("")
   code_arr = code.split("")
   output = ""
-
-  if (input == code)
-    puts input
-    puts "Nice work! You took #{guesses} #{guesses > 1 ? "guesses." : "guess."}"
-  end
+  guesses += 1
 
   guess_arr.each_with_index do |guess, index|
     guess_index = code_arr.index(guess)
@@ -31,8 +27,7 @@ while input != code
     end
   end
 
-  guesses += 1
-
+  print "\n"
   print "[#{guesses}] Enter your guess: "
 
   input = gets.chomp
