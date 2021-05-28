@@ -1,9 +1,14 @@
 print "What's your name? "
 
 name = gets.chomp
-string_1 = "Happy birthday to you"
+happy_string = "Happy birthday"
 
-puts string_1
-puts string_1
-puts "Happy birthday dear #{name}"
-puts string_1
+count = 1
+while count <= 4
+  if count == 3
+    puts "#{happy_string} dear #{name}"
+  else
+    puts happy_string + " to you"
+  end
+  count += 1
+end
