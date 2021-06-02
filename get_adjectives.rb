@@ -14,6 +14,9 @@ def get_adjective(string)
   words[index + 1]
 end
 
-adjectives = relevant_lines.map { |line| get_adjective(line) }
+adjectives = relevant_lines.map do |line| 
+  adjective = get_adjective(line)
+  "'#{adjective.capitalize}'"
+end
 
 puts adjectives
