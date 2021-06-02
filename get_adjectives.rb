@@ -1,5 +1,7 @@
-review_file = File.open("reviews.txt")
+lines = []
 
-lines = review_file.readlines
+File.open("reviews.txt") do |review_file|
+  lines = review_file.readlines
+end
 
-p lines
+puts lines
