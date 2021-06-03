@@ -10,7 +10,7 @@ until resolved
   print "Player 2 - Enter your selection: "
   player2 = gets.chomp.capitalize
 
-  unless valids.include?(player2) && valids.include?(player2)
+  unless valids.include?(player1) && valids.include?(player2)
     puts "No cheaters! Only Rock, Paper or Scissors are allowed."
     next
   end
