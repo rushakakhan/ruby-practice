@@ -1,52 +1,40 @@
 puts "Rock Paper Scissors"
 
-print "Player 1 - Enter your selection: "
+valids = ["Rock", "Paper", "Scissors"]
+resolved = false
 
-player1 = gets.chomp.capitalize
+until resolved
+  print "Player 1 - Enter your selection: "
+  player1 = gets.chomp.capitalize
 
-print "Player 2 - Enter your selection: "
+  print "Player 2 - Enter your selection: "
+  player2 = gets.chomp.capitalize
 
-player2 = gets.chomp.capitalize
+  unless valids.include?(player1) && valids.include?(player2)
+    puts "No cheaters! Only Rock, Paper or Scissors are allowed."
+    next
+  end
 
-if player1 == player2
-  puts "Tie!"
-  return
+  if player1 == player2
+    puts "Tie!" 
+    next
+  end
+
+  choices = [player1, player2]
+  winner = nil
+
+  case choices.sort
+  when ["Paper", "Rock"]
+    puts "Paper covers rock."
+    winner = choices.index("Paper") + 1
+  when ["Paper", "Scissors"]
+    puts "Scissors cuts paper."
+    winner = choices.index("Scissors") + 1
+  when ["Rock", "Scissors"]
+    puts "Rock crushes scissors."
+    winner = choices.index("Rock") + 1  
+  end
+  resolved = true
 end
 
-case player1
-when "Rock"
-  case player2
-  when "Scissors"
-    puts "Rock crushes scissors."
-    puts "Player 1 wins!"
-  when "Paper"
-    puts "Paper covers rock."
-    puts "Player 2 wins!"
-  else
-    puts "No cheaters! Only Rock, Paper or Scissors are allowed."
-  end
-when "Scissors"
-  case player2
-  when "Rock"
-    puts "Rock crushes scissors."
-    puts "Player 2 wins!"
-  when "Paper"
-    puts "Scissors cuts paper."
-    puts "Player 1 wins!"
-  else
-    puts "No cheaters! Only Rock, Paper or Scissors are allowed."
-  end
-when "Paper"
-  case player2
-  when "Scissors"
-    puts "Scissors cuts paper."
-    puts "Player 2 wins!"
-  when "Rock"
-    puts "Paper covers rock."
-    puts "Player 1 wins!"
-  else
-    puts "No cheaters! Only Rock, Paper or Scissors are allowed."
-  end
-else
-  puts "No cheaters! Only Rock, Paper or Scissors are allowed."
-end
+puts "Player #{winner} wins!"
