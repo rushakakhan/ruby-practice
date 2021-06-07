@@ -51,7 +51,7 @@ end
 class Armadillo < Animal
   def move(destination)
     puts "#{name} unrolls!"
-    puts "#{name} runs to the #{destination}."
+    super
   end
 end
 
