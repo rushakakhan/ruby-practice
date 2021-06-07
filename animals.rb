@@ -48,9 +48,6 @@ class Cat < Animal
   def talk
     puts "#{@name} says Meow!"
   end
-  def move(destination)
-    puts "#{@name} runs to the #{destination}."
-  end
 end
 
 chirpy = Bird.new
