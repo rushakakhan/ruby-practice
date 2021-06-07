@@ -32,6 +32,12 @@ end
 class Dog < Animal
 end
 
+class Cat < Animal
+  def talk
+    puts "#{@name} says Meow!"
+  end
+end
+
 class Bird < Animal
   def talk
     puts "#{@name} says Chirp! Chirp!"
@@ -42,11 +48,10 @@ class Bird < Animal
   end
 end
 
-
-
-class Cat < Animal
-  def talk
-    puts "#{@name} says Meow!"
+class Armadillo < Animal
+  def move(destination)
+    puts "#{name} unrolls!"
+    puts "#{name} runs to the #{destination}."
   end
 end
 
@@ -63,15 +68,9 @@ willow = Cat.new
 willow.name = "Willow"
 willow.age = 4
 
-pop = Cat.new
-pop.name = "Poppy"
-pop.age = 2
-
 chirpy.move("tree")
 sandy.talk
 sandy.report_age
 willow.move("house")
 willow.report_age
-pop.report_age
-puts "Her name is #{pop.name}!"
 
