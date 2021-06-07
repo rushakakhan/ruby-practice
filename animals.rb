@@ -30,6 +30,9 @@ class Animal
 end
 
 class Dog < Animal
+  def to_s 
+    "#{@name} the dog, age #{age}"
+  end
 end
 
 class Cat < Animal
@@ -74,3 +77,4 @@ sandy.report_age
 willow.move("house")
 willow.report_age
 
+puts sandy.to_s
