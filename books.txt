@@ -1,0 +1,8 @@
+Practical Object-Oriented Design In Ruby -- Sandi Metz, 390
+The Power of Now -- Eckart Tolle, 225
+Head First Ruby -- Jay McGavren, 505
+Design Patterns in Ruby -- Obie Fernandez, 430
+Sapiens -- Yuval Noah Harari, 550
+Brave New World -- Aldous Huxley, 230
+Finite and Infinite Games -- James P. Carse, 187
+The Prophet -- Kahil Gibran, 167
