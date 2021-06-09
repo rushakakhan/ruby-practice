@@ -48,12 +48,12 @@ class HourlyEmployee < Employee
     if hours_per_week < 0
       raise "Hours per week can't be #{hours_per_week}"
     end
-    @hours_per_week = hourly_wage
+    @hours_per_week = hours_per_week
   end
 
   def print_pay_stub
     print_name
-    pay_for_period = @hourly_wage * @hours_per_week * 2
+    pay_for_period = hourly_wage * hours_per_week * 2
     formatted_pay = format("$%.2f", pay_for_period)
     puts "Pay This Period: #{formatted_pay}"
   end
@@ -67,5 +67,5 @@ salaried_employee.print_pay_stub
 hourly_employee = HourlyEmployee.new
 hourly_employee.name = "John Smith"
 hourly_employee.hourly_wage = 14.97
-hourly_employee.hours_per_week = 40
+hourly_employee.hours_per_week = 30
 hourly_employee.print_pay_stub
