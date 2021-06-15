@@ -2,6 +2,24 @@ class Domino
 
   attr_reader :top, :bottom
 
+  def self.get_double_six_set
+
+    set = []
+
+    for i in 0..6
+      for j in 0..i
+        dom = Domino.new(j, i)
+        puts j,i
+        puts dom.to_s
+        set << dom
+      end
+    end
+    return set
+  end
+
+    
+
+
   def initialize(top, bottom)
     if top < 0 || bottom < 0
       raise "Values cannot be less than 0."
@@ -37,12 +55,12 @@ class Domino
           middle_row = "|     |"
         end
         bottom_row = "|    *|"
-      else
+      elsif dots >= 4
         top_row = "|*   *|"
         bottom_row = "|*   *|"
         if dots == 4
           middle_row = "|     |"
-        else
+        elsif dots == 6
           middle_row = "|*   *|"
         end
       end
@@ -68,3 +86,9 @@ doms << Domino.new(5, 3)
 doms << Domino.new(6, 6)
 
 doms.each { |dom| dom.to_s }
+
+#new_dom_set = Domino.get_double_six_set
+
+#new_dom_set.each { |dom| dom.to_s }
+
+#puts new_dom_set.length
