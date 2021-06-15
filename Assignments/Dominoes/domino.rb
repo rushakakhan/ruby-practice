@@ -8,10 +8,7 @@ class Domino
 
     for i in 0..6
       for j in 0..i
-        dom = Domino.new(j, i)
-        puts j,i
-        puts dom.to_s
-        set << dom
+        set << Domino.new(j, i)
       end
     end
     return set
@@ -36,37 +33,13 @@ class Domino
     divider = "+-----+"
 
     def create_face(dots)
-      top_row = ""
-      middle_row = ""
-      bottom_row = ""
+      top_rows = ["|     |", "|     |", "|*    |", "|*    |", "|*   *|", "|*   *|", "|*   *|"]
+      middle_rows = ["|     |", "|  *  |", "|     |", "|  *  |", "|     |", "|  *  |", "|*   *|"]
+      bottom_rows = ["|     |", "|     |", "|    *|", "|    *|", "|*   *|", "|*   *|", "|*   *|"]
 
-      if dots <= 1
-        top_row = "|     |"
-        bottom_row = "|     |"
-      end
-
-      if dots % 2 == 1
-        middle_row = "|  *  |"
-      end
-
-      if dots > 1 && dots < 4
-        top_row = "|*    |"
-        if dots == 2
-          middle_row = "|     |"
-        end
-        bottom_row = "|    *|"
-      elsif dots >= 4
-        top_row = "|*   *|"
-        bottom_row = "|*   *|"
-        if dots == 4
-          middle_row = "|     |"
-        elsif dots == 6
-          middle_row = "|*   *|"
-        end
-      end
-      puts top_row
-      puts middle_row
-      puts bottom_row
+      puts top_rows[dots]
+      puts middle_rows[dots]
+      puts bottom_rows[dots]
     end
 
     puts divider
@@ -85,10 +58,10 @@ doms << Domino.new(4, 4)
 doms << Domino.new(5, 3)
 doms << Domino.new(6, 6)
 
-doms.each { |dom| dom.to_s }
+#doms.each { |dom| dom.to_s }
 
-#new_dom_set = Domino.get_double_six_set
+new_dom_set = Domino.get_double_six_set
 
-#new_dom_set.each { |dom| dom.to_s }
+new_dom_set.each { |dom| dom.to_s }
 
-#puts new_dom_set.length
+puts "The set contains #{new_dom_set.length} dominoes."
