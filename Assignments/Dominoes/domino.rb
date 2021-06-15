@@ -31,7 +31,7 @@ class Domino
       top_rows = ["|     |", "|     |", "|*    |", "|*    |", "|*   *|", "|*   *|", "|*   *|"]
       middle_rows = ["|     |", "|  *  |", "|     |", "|  *  |", "|     |", "|  *  |", "|*   *|"]
       bottom_rows = ["|     |", "|     |", "|    *|", "|    *|", "|*   *|", "|*   *|", "|*   *|"]
-      
+
       puts top_rows[dots]
       puts middle_rows[dots]
       puts bottom_rows[dots]
@@ -51,6 +51,12 @@ def swap_tops_and_bottoms(list)
   end
 end
 
+def find_dominoes_with(dominoes, top_num, bottom_num)
+  dominoes.find_all do |dom|
+    dom.top == top_num && dom.bottom == bottom_num
+  end
+end
+
 double_six_dom_set = Domino.get_double_six_set
 new_dom_set = swap_tops_and_bottoms(double_six_dom_set)
 
@@ -61,3 +67,8 @@ double_six_dom_set.each { |dom| dom.to_s }
 puts "-----------------------------"
 puts "Swapped Set: "
 new_dom_set.each { |dom| dom.to_s }
+
+puts "-----------------------------"
+puts "All doms in Swapped set with 4 on top and 3 on bottom: "
+found_doms = find_dominoes_with(new_dom_set, 4, 3)
+found_doms.each { |dom| dom.to_s }
