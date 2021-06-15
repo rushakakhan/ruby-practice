@@ -3,7 +3,6 @@ class Domino
   attr_reader :top, :bottom
 
   def self.get_double_six_set
-
     set = []
 
     for i in 0..6
@@ -13,9 +12,6 @@ class Domino
     end
     return set
   end
-
-    
-
 
   def initialize(top, bottom)
     if top < 0 || bottom < 0
@@ -29,14 +25,13 @@ class Domino
   end
 
   def to_s
-
     divider = "+-----+"
 
     def create_face(dots)
       top_rows = ["|     |", "|     |", "|*    |", "|*    |", "|*   *|", "|*   *|", "|*   *|"]
       middle_rows = ["|     |", "|  *  |", "|     |", "|  *  |", "|     |", "|  *  |", "|*   *|"]
       bottom_rows = ["|     |", "|     |", "|    *|", "|    *|", "|*   *|", "|*   *|", "|*   *|"]
-
+      
       puts top_rows[dots]
       puts middle_rows[dots]
       puts bottom_rows[dots]
@@ -50,18 +45,19 @@ class Domino
   end
 end
 
-doms = []
-doms << Domino.new(0, 1)
-doms << Domino.new(3, 5)
-doms << Domino.new(1, 2)
-doms << Domino.new(4, 4)
-doms << Domino.new(5, 3)
-doms << Domino.new(6, 6)
+def swap_tops_and_bottoms(list)
+  list.map do |dom| 
+    Domino.new(dom.bottom, dom.top)
+  end
+end
 
-#doms.each { |dom| dom.to_s }
+double_six_dom_set = Domino.get_double_six_set
+new_dom_set = swap_tops_and_bottoms(double_six_dom_set)
 
-new_dom_set = Domino.get_double_six_set
+puts "-----------------------------"
+puts "Regular Double Six Set: "
+double_six_dom_set.each { |dom| dom.to_s }
 
+puts "-----------------------------"
+puts "Swapped Set: "
 new_dom_set.each { |dom| dom.to_s }
-
-puts "The set contains #{new_dom_set.length} dominoes."
