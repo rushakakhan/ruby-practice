@@ -23,4 +23,5 @@ listing.print_bids
 
 me.accept_offer(listing, 1)
 
+me.print_all_properties
 

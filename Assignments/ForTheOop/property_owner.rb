@@ -65,23 +65,6 @@ class PropertyOwner < User
     raise "You can't accept offers on listings you do not own." if !@listings.include?(listing)
     bid = listing.get_bid(bid_index)
 
-    highest_bid = listing.get_highest_bid
-
-    input = "yes"
-    unless highest_bid == bid
-      puts "Are you sure you want to accept bid #{bid_index + 1}? There is a higher bid now of #{highest_bid[:amount]}: "
-      input = gets.chomp
-    end
-
-    unless input.downcase == "yes"
-      puts "Would you like to accept the higher bid?"
-      input = gets.chomp
-    end
-
-    if input.downcase == "yes"
-      bid = highest_bid
-    end
-
     buyer = bid[:name]
     sold_price = bid[:amount]
     puts "#{@name} accepted #{buyer}'s offer of #{sold_price}, for the '#{listing.address}' property."
