@@ -1,18 +1,28 @@
 class Textogram
 
   def initialize(text, case_sensitive = false, include_special_chars = false)
+    if text == ""
+      raise "Text cannot be blank!"
+    end
     @text = text
     @case_sensitive = case_sensitive
     @include_special = include_special_chars
-    if text == ""
-      raise "Text cannot be blank!"
-    else
-      @hash = generate_textogram(text)
-    end
+    @char_hash = Hash.new
+    @word_hash = Hash.new
   end
 
-  def to_hash
-    @hash
+  def chars_to_hash
+    if @char_hash.empty?
+      generate_histogram(@text)
+    end
+    @char_hash
+  end
+
+  def words_to_hash
+    if @word_hash.empty?
+      generate_histogram(@text, true)
+    end
+    @word_hash
   end
 
   def to_s
@@ -27,11 +37,16 @@ class Textogram
 
   private
 
-  def generate_textogram(text)
+  def generate_histogram(text, for_words = false)
     hash = Hash.new
     text = text.gsub(/[^0-9A-Za-z]/, '') unless @include_special
+    raise "No valid characters to work with." if text == ""
     text.downcase! unless @case_sensitive
-    chars = text.split("").sort
+    if for_words
+      chars = text.split(" ").sort
+    else
+      chars = text.split("").sort
+    end
 
     chars.each do |c|
       next if c == " "
@@ -47,9 +62,5 @@ class Textogram
   end
 end
 
-testogram = Textogram.new("HELLO World!")
-#blank_test = Textogram.new("") # Throws error: 'Text cannot be blank'
-
-p testogram.to_hash
 
 
