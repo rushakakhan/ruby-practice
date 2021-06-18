@@ -8,7 +8,7 @@ class Textogram
     if text == ""
       raise "Text cannot be blank!"
     else
-      @hash = generate_textogram(text)
+      @hash = generate_hash(text)
     end
   end
 
@@ -28,7 +28,7 @@ class Textogram
 
   private
 
-  def generate_textogram(text)
+  def generate_hash(text)
     hash = Hash.new
     text = text.gsub(/[^0-9A-Za-z]/, ' ') unless @include_special
     raise "No valid characters to work with." if text == ""
