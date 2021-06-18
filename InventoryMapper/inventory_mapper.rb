@@ -50,18 +50,18 @@ end
 
 inventory_mapper = InventoryMapper.new
 
+puts "abccc"
 puts inventory_mapper.get_complete_products("abccc")
-#puts "abccc"
-#p inventory_mapper.get_part_hash("abccc")
+
+puts "beceadee"
 puts inventory_mapper.get_complete_products("beceadee")
-#puts "beceadee"
-#p inventory_mapper.get_part_hash("beceadee")
+
+puts "eebeedebaceeceedeceacee"
 puts inventory_mapper.get_complete_products("eebeedebaceeceedeceacee")
-#puts "eebeedebaceeceedeceacee"
-#p inventory_mapper.get_part_hash("eebeedebaceeceedeceacee")
+
+puts "zabc"
 puts inventory_mapper.get_complete_products("zabc")
-#puts "zabc"
-#p inventory_mapper.get_part_hash("zabc")
+
+puts "deeedeee"
 puts inventory_mapper.get_complete_products("deeedeee")
-#puts "deeedeee"
-#p inventory_mapper.get_part_hash("deeedeee")
+
