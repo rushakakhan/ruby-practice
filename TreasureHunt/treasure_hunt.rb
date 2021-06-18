@@ -29,7 +29,6 @@ class TreasureHunt
       bottom = 0
     end
       
-
     @map.keys.each do |arr|
       x = arr.first
       y = arr.last
