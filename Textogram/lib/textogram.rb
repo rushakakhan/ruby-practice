@@ -28,8 +28,9 @@ class Textogram
 
   private
 
-  def generate_hash(text)
-    hash = Hash.new
+  # It would be nice to remove punctuation from words, as those shouldn't be considered as part of a word
+
+  def generate_array(text)
     text = text.gsub(/[^0-9A-Za-z]/, ' ') unless @include_special
     raise "No valid characters to work with." if text == ""
     text.downcase! unless @case_sensitive
@@ -39,9 +40,14 @@ class Textogram
     else
       splitter = ""
     end
-    chars = text.split(splitter).sort
+    text.split(splitter).sort
+  end
 
-    chars.each do |c|
+  def generate_hash(text)
+    hash = Hash.new
+    strings_array = generate_array(text)
+
+    strings_array.each do |c|
       next if c == " "
       char_sym = c.to_sym
 
