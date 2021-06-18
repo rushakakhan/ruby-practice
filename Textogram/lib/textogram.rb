@@ -72,13 +72,35 @@ words_special_chars = Textogram.new("HELLO World! My name is World! I mean Craig
 words_with_both = Textogram.new("HELLO World! My name is World! I mean Craig...my name is CRAIG.", true, true, true)
 
 p test_default_chars.to_hash
+# Output: {:d=>1, :e=>1, :h=>1, :l=>3, :o=>2, :r=>1, :w=>1}
+
 p test_default_chars_with_case.to_hash
+# Output: {:E=>1, :H=>1, :L=>2, :O=>1, :W=>1, :d=>1, :l=>1, :o=>1, :r=>1}
+
 p test_default_chars_with_special.to_hash
+# Output: {:!=>1, :d=>1, :e=>1, :h=>1, :l=>3, :o=>2, :r=>1, :w=>1}
+
 p test_default_chars_with_both.to_hash
+# Output: {:!=>1, :E=>1, :H=>1, :L=>2, :O=>1, :W=>1, :d=>1, :l=>1, :o=>1, :r=>1}
 
 p words_default.to_hash
+# Output: {:craig=>2, :hello=>1, :i=>1, :is=>2, :mean=>1, :my=>2, :name=>2, :world=>2}
+
 p words_case_sensitive.to_hash
+# Output: {:CRAIG=>1, :Craig=>1, :HELLO=>1, :I=>1, :My=>1, :World=>2, :is=>2, :mean=>1, :my=>1, :name=>2}
+
 p words_special_chars.to_hash
+# Output: {:"craig."=>1, :"craig...my"=>1, :hello=>1, :i=>1, :is=>2, :mean=>1, :my=>1, :name=>2, :world!=>2}
+
 p words_with_both.to_hash
+# Output: {:"CRAIG."=>1, :"Craig...my"=>1, :HELLO=>1, :I=>1, :My=>1, :World!=>2, :is=>2, :mean=>1, :name=>2}
 
 
+zelda_dameron_text = ""
+File.open("zelda_dameron.txt") do |file|
+  zelda_dameron_text = file.read
+end
+
+zelda_dameron_textogram = Textogram.new(zelda_dameron_text, false, false, true)
+
+puts zelda_dameron_textogram.to_s
