@@ -52,10 +52,14 @@ class StudentBody
 end
 
 
-school = StudentBody.new
-school.add_students_to_class("Grade 7", ["Bobby J", "Chrissy M", "Billy K", "Sean D", "Sally S", "Abby J", "Mark S"])
-p school.class_lists
-puts school.to_s
+#school = StudentBody.new
+#school.add_students_to_class("Grade 7", ["Bobby J", "Chrissy M", "Billy K", "Sean D", "Sally S", "Abby J", "Mark S"])
 
-billys = school.find_all { |student| student.split(" ").include?("Billy") }
-p billys
+#p school.to_s
+
+# Finds all students with "Billy" in their name
+#billys = school.find_all { |student| student.split(" ").include?("Billy") }
+#p billys
+
+# Prints each student in school
+#school.each{ |student| puts student }
