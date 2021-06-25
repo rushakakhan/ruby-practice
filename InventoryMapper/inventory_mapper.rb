@@ -1,29 +1,44 @@
-class InventoryMapper 
+class Product 
+  
+  attr_accessor :title, :parts_required
 
-  def initialize 
-    @product_hash = {"Shelf": 0, "Stool": 0, "Table": 0}
+  def initialize(title, parts_hash)
+    @title = title
+    @parts_required = parts_hash
   end
 
-  def get_complete_products(input)
+  def to_s 
+    "Product title: #{title}\nParts required: #{parts_required}"
+  end
 
-    product_hash = @product_hash.clone
+end
+
+class InventoryMapper 
+
+  attr_accessor :products_to_build
+
+  def initialize(array_of_products) 
+    @products_to_build = array_of_products
+  end
+
+  def build_products_with(input)
     part_hash = get_part_hash(input)
+    product_hash = {}
 
-    product_hash[:"Shelf"] = part_hash["a"] unless part_hash["a"].nil?
+    @products_to_build.each do |product|
+      parts_array = []
+      product_hash.store(product.title.to_sym, 0)
 
-    unless part_hash["b"].nil? || part_hash["c"].nil?
-      if part_hash["b"] >=1 && part_hash["c"] >= 3
-        complete = part_hash["b"] > part_hash["c"] / 3 ? part_hash["c"] / 3 : part_hash["b"] 
-        product_hash[:"Stool"] = complete
+      product.parts_required.each do |key, num_required|    
+        unless part_hash[key.to_sym].nil?
+          num_of_part = part_hash[key.to_sym]
+          parts_array << num_of_part / num_required
+        end
       end
+
+      product_hash[product.title.to_sym] = parts_array.min unless parts_array.empty?
     end
 
-    unless part_hash["d"].nil? || part_hash["e"].nil?
-      if part_hash["d"] && part_hash["d"] >=1 && part_hash["e"] >= 4
-        complete = part_hash["d"] > part_hash["e"] / 4 ? part_hash["e"] / 4 : part_hash["d"] 
-        product_hash[:"Table"] = complete
-      end
-    end
     product_hash
   end
 
@@ -31,15 +46,13 @@ class InventoryMapper
 
   # Creates hash of characters as key and quantity as value
   def get_part_hash(part_ids)
-
     part_hash = {}
+
     part_ids.split("").each do |id|
-      if id == "a" || id == "b" || id == "c" || id == "d" || id == "e"
-        if part_hash.has_key?(id)
-          part_hash[id] += 1
-        else 
-          part_hash[id] = 1
-        end
+      if part_hash.has_key?(id.to_sym)
+        part_hash[id.to_sym] += 1
+      else 
+        part_hash[id.to_sym] = 1
       end
     end
     part_hash
@@ -47,21 +60,24 @@ class InventoryMapper
 
 end
 
+stool = Product.new("Stool", {"b": 1, "c": 3})
+shelf = Product.new("Shelf", {"a": 1})
+table = Product.new("Table", {"d": 1, "e": 4})
 
-inventory_mapper = InventoryMapper.new
+inventory_mapper = InventoryMapper.new([shelf, stool, table])
 
 puts "abccc"
-puts inventory_mapper.get_complete_products("abccc")
+puts inventory_mapper.build_products_with("abccc")
 
 puts "beceadee"
-puts inventory_mapper.get_complete_products("beceadee")
+puts inventory_mapper.build_products_with("beceadee")
 
 puts "eebeedebaceeceedeceacee"
-puts inventory_mapper.get_complete_products("eebeedebaceeceedeceacee")
+puts inventory_mapper.build_products_with("eebeedebaceeceedeceacee")
 
 puts "zabc"
-puts inventory_mapper.get_complete_products("zabc")
+puts inventory_mapper.build_products_with("zabc")
 
 puts "deeedeee"
-puts inventory_mapper.get_complete_products("deeedeee")
+puts inventory_mapper.build_products_with("deeedeee")
 
