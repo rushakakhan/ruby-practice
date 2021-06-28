@@ -1,39 +1,48 @@
-class ProductList
+class Product
+  include Comparable
+  attr_accessor :title, :times_purchased, :price
 
-  attr_reader :products_array
-
-  def initialize(input_array)
-    @products_array = input_array
+  def initialize(args)
+    @title = args[:title]
+    @times_purchased = args[:popularity].to_i
+    @price = args[:price].to_i
   end
 
-  def sorted_products
-    @sorted_products ||= sort_products_by_popularity_and_price(products_array)
+  def <=>(other)
+    if times_purchased < other.times_purchased
+      return 1
+    elsif times_purchased == other.times_purchased && price > other.price
+      return 1
+    else
+      return -1
+    end    
+  end
+end
+
+class ProductList
+  def initialize(input_array)
+    @products_input = input_array
+  end
+
+  def products_list
+    @products_list ||= build_products_list
+  end
+
+  def sorted
+    @sorted_products ||= products_list.sort
   end
 
   private
 
-  def sort_products_by_popularity_and_price(input_array)
-    sorted = []
-    input_array.each do |product_row|
-      prod_hash = string_to_hash(product_row, ",", ["title", "popularity", "price"])
-      index = 0
+  def build_products_list
+    products_list = []
+    @products_input.each do |product_row|
+      prod_array = product_row.split(",")
+      product = Product.new({:title => prod_array[0], :popularity => prod_array[1], :price => prod_array[2]})
 
-      until sorted[index].nil? || sorted[index][:popularity].to_i < prod_hash[:popularity].to_i
-        break if sorted[index][:popularity].to_i == prod_hash[:popularity].to_i && sorted[index][:price].to_i > prod_hash[:price].to_i
-        index += 1        
-      end
-
-      sorted.insert(index, prod_hash)
+      products_list << product
     end
-
-    sorted
-  end
-
-  def string_to_hash(string, seperator, keys)
-    string_array = string.split(seperator)
-    hash = Hash.new
-    keys.each_with_index { |key, index| hash.store(key.to_sym, string_array[index]) }
-    hash
+    products_list
   end
 end
 
@@ -62,7 +71,7 @@ sample_input = [
 
 available_products = ProductList.new(sample_input)
 
-puts available_products.sorted_products.map { |product| product[:title] }
+puts available_products.sorted.map(&:title)
 
 
 
