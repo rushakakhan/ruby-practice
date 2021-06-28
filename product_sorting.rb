@@ -35,12 +35,9 @@ class ProductList
   private
 
   def build_products_list
-    products_list = []
-    @products_input.each do |product_row|
+    products_list = @products_input.map do |product_row|
       prod_array = product_row.split(",")
-      product = Product.new({:title => prod_array[0], :popularity => prod_array[1], :price => prod_array[2]})
-
-      products_list << product
+      Product.new({:title => prod_array[0], :popularity => prod_array[1], :price => prod_array[2]})
     end
     products_list
   end
