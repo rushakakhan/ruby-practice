@@ -33,21 +33,13 @@ class BuyOneGetOne
   end
 
   def apply_discount(cart_items)
-    count_buy = 0
 
-    cart_items.each do |item|
-      if item.product == @buy_product
-        if count_buy >= 1 || item.quantity > 1
-          num_left = item.quantity - 1 
-          item.line_price = num_left * item.product.price 
-          item.discounted_by = 1 - (100.0 / item.quantity / 100)
-          count_buy = num_left
-        else
-          count_buy += 1 
-        end
+    cart_items.each_with_index do |item, index|
+      if item.product == @buy_product && (item.quantity / 2).floor > 0
+        item.line_price = (item.quantity - (item.quantity / 2).floor) * item.product.price
       end
     end
-
+    
     cart_items
   end
 
@@ -92,10 +84,9 @@ class Cart
 
   attr_reader :line_items
 
-  def initialize(input, discounts)
-    @input = input
+  def initialize(items_input, discounts)
+    @line_items = process_input(items_input)
     @discounts = discounts
-    @line_items = process_input(input)
     apply_discounts!
   end
 
@@ -109,18 +100,18 @@ class Cart
     @discounts.each { |discount| discount.apply_discount(@line_items) }
   end
 
-  def get_total(array)
+  def get_total(line_items)
     total = 0.00
 
-    array.each do |item|
+    line_items.each do |item|
       total += item.line_price
     end
 
     total
   end
 
-  def process_input(input)
-    line_items = input.map do |line|
+  def process_input(items_array)
+    line_items = items_array.map do |line|
       create_line_item(line)
     end
     line_items
@@ -155,22 +146,22 @@ ACTIVE_DISCOUNTS = [
 
 items = [ ['grapes', 1], ['apples', 0], ['peaches', 1] ]
 puts "for #{items}"
-puts "Total = #{Cart.new(items, ACTIVE_DISCOUNTS).total_price}"
+puts format("Total = $%.2f", Cart.new(items, ACTIVE_DISCOUNTS).total_price)
 
 items = [ ['grapes', 1], ['apples', 1], ['peaches', 1] ]
 puts "for #{items}"
-puts "Total = #{Cart.new(items, ACTIVE_DISCOUNTS).total_price}"
+puts format("Total = $%.2f", Cart.new(items, ACTIVE_DISCOUNTS).total_price)
 
 items = [ ['grapes', 2], ['apples', 2], ['peaches', 1] ]
 puts "for #{items}"
-puts "Total = #{Cart.new(items, ACTIVE_DISCOUNTS).total_price}"
+puts format("Total = $%.2f", Cart.new(items, ACTIVE_DISCOUNTS).total_price)
 
 items = [['grapes', 3], ['apples', 5], ['peaches', 2] ]
 puts "for #{items}"
-puts "Total = #{Cart.new(items, ACTIVE_DISCOUNTS).total_price}"
+puts format("Total = $%.2f", Cart.new(items, ACTIVE_DISCOUNTS).total_price)
 
 items = [['grapes', 7], ['apples', 7], ['peaches', 7] ]
 puts "for #{items}"
-puts "Total = #{Cart.new(items, ACTIVE_DISCOUNTS).total_price}"
+puts format("Total = $%.2f", Cart.new(items, ACTIVE_DISCOUNTS).total_price)
 
 #puts "Total after discounts: #{cart.total}"
