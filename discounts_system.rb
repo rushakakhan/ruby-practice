@@ -39,7 +39,7 @@ class BuyOneGetOne
         item.line_price = (item.quantity - (item.quantity / 2).floor) * item.product.price
       end
     end
-    
+
     cart_items
   end
 
@@ -121,28 +121,23 @@ class Cart
     name_string = line[0].downcase
     quantity = line[1].to_i
     prod_obj = STORE_PRODUCTS.find { |product| product.name.downcase.pluralize == name_string }
-    LineItem.new(prod_obj, quantity)
+    if prod_obj == false 
+      raise "Product was not found for '#{name_string}'"
+    end
+    LineItem.new(prod_obj, quantity) 
   end
 end
 
 apple = Product.new("Apple", 3.00)
-peach = Product.new("Peach", 7.00)
+peaches = Product.new("Peach", 7.00)
 grapes = Product.new("Grapes", 5.00)
 
-STORE_PRODUCTS = [apple, peach, grapes]
-
-sample_input = [ 
-  ['grapes', 2], 
-  ['apples', 2], 
-  ['peaches', 1] 
-]
+STORE_PRODUCTS = [apple, grapes, peaches]
 
 ACTIVE_DISCOUNTS = [
   BuyOneGetOne.new(grapes, grapes),
   BuyXGetYOffZ.new(apple, 2, apple, 20)
 ]
-
-#cart = Cart.new(sample_input, ACTIVE_DISCOUNTS)
 
 items = [ ['grapes', 1], ['apples', 0], ['peaches', 1] ]
 puts "for #{items}"
