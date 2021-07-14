@@ -27,16 +27,10 @@ class Item
   end
 end
 
-class Sellable
+class Sellable < Item
 
   DEFAULT_DEGRADING_RATE = 1
   AFTER_DATE_DEGRADING_RATE = 2
-
-  def initialize(name, sell_in, quality)
-    @name = name
-    @sell_in = sell_in
-    @quality = quality
-  end
 
   def update_quality 
     if sell_in < 0
