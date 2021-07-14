@@ -1,12 +1,28 @@
 class GildedRose
 
+  AGED_BRIE = "Aged Brie"
+  BACKSTAGE_PASS = "Backstage passes to a TAFKAL80ETC concert"
+  SULFURAS = "Sulfuras, Hand of Ragnaros"
+  CONJURED = "Conjured Mana Cake"
+
   def initialize(items)
     @items = items
   end
 
   def update_inventory()
     @items.each do |item|
-      sellable = Sellable.new(item.name, item.sell_in, item.quality)
+      case item.name
+      when AGED_BRIE
+        sellable = AgedBrie.new(item.name, item.sell_in, item.quality)
+      when BACKSTAGE_PASS
+        sellable = BackstagePass.new(item.name, item.sell_in, item.quality)
+      when SULFURAS
+        sellable = Sulfuras.new(item.name, item.sell_in, item.quality)
+      when CONJURED
+        sellable = Conjured.new(item.name, item.sell_in, item.quality)
+      else
+        sellable = Sellable.new(item.name, item.sell_in, item.quality)
+      end
       sellable.update_quality
       sellable.update_sell_in
     end
