@@ -1,5 +1,7 @@
 class GildedRose
 
+  attr_reader :items
+
   AGED_BRIE = "Aged Brie"
   BACKSTAGE_PASS = "Backstage passes to a TAFKAL80ETC concert"
   SULFURAS = "Sulfuras, Hand of Ragnaros"
@@ -9,7 +11,7 @@ class GildedRose
     @items = items
   end
 
-  def update_inventory()
+  def update_quality
     @items.each do |item|
       case item.name
       when AGED_BRIE
