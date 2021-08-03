@@ -27,6 +27,9 @@ class GildedRose
       end
       sellable.update_quality
       sellable.update_sell_in
+
+      item.quality = sellable.quality
+      item.sell_in = sellable.sell_in
     end
   end
 end
@@ -50,27 +53,35 @@ class Sellable < Item
   DEFAULT_DEGRADING_RATE = 1
   AFTER_DATE_DEGRADING_RATE = 2
 
+  def initialize(name, sell_in, quality)
+    super(name, sell_in, quality)
+  end
+
   def update_quality 
-    if sell_in < 0
-      quality -= AFTER_DATE_DEGRADING_RATE
+    if self.sell_in < 0
+      self.quality -= AFTER_DATE_DEGRADING_RATE
     else
-      quality -= DEFAULT_DEGRADING_RATE
+      self.quality -= DEFAULT_DEGRADING_RATE
     end
   end
 
   def update_sell_in
-    sell_in -= DEFAULT_DEGRADING_RATE
+    self.sell_in -= DEFAULT_DEGRADING_RATE
   end
 end
 
 class AgedBrie < Sellable 
 
-  def update_quality 
-    quality += 1
+  def update_quality
+    if self.sell_in < 0
+      self.quality += 2
+    else
+      self.quality += 1
+    end
   end
 
   def update_sell_in
-    sell_in -= 1
+    self.sell_in -= 1
   end
 
 end
@@ -79,27 +90,27 @@ class BackstagePass < Sellable
 
   def update_quality 
     rate = 1
-    if sell_in < 0 
-      quality = 0
+    if self.sell_in < 0 
+      self.quality = 0
       return
-    elsif sell_in <= 5
+    elsif self.sell_in <= 5
       rate = 3
-    elsif sell_in <= 10
+    elsif self.sell_in <= 10
       rate = 2
     end
 
-    quality += rate
+    self.quality += rate
   end
 
   def update_sell_in
-    sell_in -= 1
+    self.sell_in -= 1
   end
 
 end
 
 class Sulfuras < Sellable
 
-  def initialize
+  def initialize(name, sell_in, quality)
     super("Sulfuras, Hand of Ragnaros", nil, 80)
   end
 
@@ -116,15 +127,15 @@ end
 class Conjured < Sellable
 
   def update_quality 
-    if sell_in < 0
-      quality -= 4
+    if self.sell_in < 0
+      self.quality -= 4
     else
-      quality -= 2
+      self.quality -= 2
     end
   end
 
   def update_sell_in
-    sell_in -= 1
+    self.sell_in -= 1
   end
 
 end
