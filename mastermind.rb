@@ -22,6 +22,7 @@ until input == code
 
   guess_arr.each_with_index do |guess, index|
     guess_index = code_arr.index(guess)
+    puts guess_index
     if guess_index == index && matches.include?(guess) == false
       output += "X"
       matches << guess

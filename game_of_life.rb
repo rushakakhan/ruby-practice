@@ -103,16 +103,16 @@ class GameOfLife
 
   attr_accessor :board
   
-  def initialize (board, max_rounds) 
+  def initialize (board, rounds) 
     @board = board
-    @max_rounds = max_rounds
+    @rounds = rounds
     @rounds_run = 0
   end
 
   def run
     puts "T=#{@rounds_run}"
     @board.print_board 
-    while @rounds_run < @max_rounds 
+    while @rounds_run < @rounds 
       run_round
       puts "T=#{@rounds_run}"
       @board.print_board
