@@ -1,15 +1,9 @@
 require 'minitest/autorun'
 require './game_of_life.rb'
 
-class TestGameOfLife < Minitest::Test
+class TestCellObject < Minitest::Test
 
-  def setup
-    n = 4
-    alive_array = [[1,1], [2,1], [2, 3]]
-    @board = Board.new(n, alive_array)
-  end
-
-  def test_cell_to_s
+  def test_to_s
     alive = Cell.new(true, 0, 0)
     assert_equal("1", alive.to_s)
 
@@ -17,20 +11,8 @@ class TestGameOfLife < Minitest::Test
     assert_equal("0", dead.to_s)
   end
 
-  
-  def test_print_board
-    expected = "0000\n0110\n0000\n0010\n"
-    assert_equal(expected, @board.board_string)
-  end
+  def test_valid_neighbours
 
-  def test_board_coords_match_cell_coords
-    x = 1
-    y = 2
-    # Remember we need to access array with array[y][x]
-    actual = [@board.board_array[y][x].x, @board.board_array[y][x].y]
-    expected = [x, y]
-
-    assert_equal(expected, actual)
   end
 
   def test_cell_neighbours_hash
@@ -91,4 +73,5 @@ class TestGameOfLife < Minitest::Test
     }
     assert_equal(expected, actual)
   end
+
 end

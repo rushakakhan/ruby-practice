@@ -40,7 +40,6 @@ class Cache
   end
 
   def read(key)
-
     return nil unless @data.has_key?(key)
 
     value = @data[key].value
@@ -57,7 +56,6 @@ class Cache
   end
 
   def delete(key)
-
     if @most_neglected && @data[key] == @most_neglected 
       shift(key)
       return
@@ -94,7 +92,6 @@ class Cache
   #private
 
   def unlink(node)
-
     before = node.prev
     after = node.next
 
@@ -119,7 +116,6 @@ class Cache
 
   # remove most neglected entry and set new tail
   def shift(key)
-
     new_tail = @most_neglected.next
 
     @most_neglected.next = nil
@@ -133,7 +129,6 @@ class Cache
 
   # remove least neglected entry and set new head
   def pop(key)
-
     new_head = @least_neglected.prev
 
     @least_neglected.prev = nil
@@ -144,5 +139,4 @@ class Cache
 
     @data.delete(key)
   end
-
 end
